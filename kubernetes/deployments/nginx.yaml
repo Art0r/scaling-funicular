@@ -20,4 +20,15 @@ spec:
         image: nginx:1.14.2
         ports:
           - containerPort: 80
-
+        volumeMounts:
+          # Mount the 'nginx-config' volume to the path where Nginx expects its config
+          - name: nginx-config-volume
+            mountPath: /etc/nginx/nginx.conf # This path will be a file
+            subPath: nginx.conf # This is critical: it mounts the file directly, preventing directory overwrite
+      volumes:
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config # Must match the ConfigMap name created earlier
+          items:
+          - key: nginx.conf # The key within the ConfigMap
+            path: nginx.conf # The name of the file inside the volume
