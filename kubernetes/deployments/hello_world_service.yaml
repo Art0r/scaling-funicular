@@ -21,3 +21,10 @@ spec:
         imagePullPolicy: Never
         ports:
           - containerPort: 3000
+        env:
+        - name: POSTGRES_PASSWORD
+          value: "123"
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_DB
+          value: "postgres"
